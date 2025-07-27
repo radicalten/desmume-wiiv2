@@ -30,7 +30,8 @@
 #include <wiiuse/wpad.h>
 #include <sys/dir.h>
 #include <ogc/lwp_watchdog.h>
-#include <dopmii/FileSystem.h>
+#include "FileSystem.h"
+// #include <dopmii/FileSystem.h>
 #include "MMU.h"
 #include "NDSSystem.h"
 #include "cflash.h"
@@ -44,6 +45,9 @@
 #include "GXRender.h"
 #include "rasterize.h"
 #include "filebrowser.h"
+
+//#include <sdcard/wiisd_io.h>
+#include <ogc/usbstorage.h>
 
 
 #include "gekko_utils/usb2storage.h"
@@ -122,12 +126,12 @@ static void *draw_thread(void*);
 void Execute();
 void create_dummy_firmware();
 bool CheckBios(bool);
-static bool FindIOS(u32 ios);
 
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 
+/*
 #ifdef HW_RVL
 static bool FindIOS(u32 ios)
 {
@@ -166,11 +170,13 @@ static bool FindIOS(u32 ios)
 	free(titles); 
 	return false;
 }
-#endif
+#endif */
 
 #ifdef __cplusplus
 extern "C"
 #endif
+
+
 
 int main(int argc, char **argv)
 {
@@ -180,12 +186,12 @@ int main(int argc, char **argv)
 	IO::USB OurUSB;
 	OurUSB.Startup();
 	OurUSB.Mount();
-
+	
 //	struct armcpu_memory_iface *arm9_memio = &arm9_base_memory_iface;
 //	struct armcpu_memory_iface *arm7_memio = &arm7_base_memory_iface;
 //	struct armcpu_ctrl_iface *arm9_ctrl_iface;
 //	struct armcpu_ctrl_iface *arm7_ctrl_iface;
-	char filename[MAXPATHLEN];
+	char filename[MAX_PATH];
 	char *rom_filename = filename;
   
 	init();
@@ -847,6 +853,6 @@ bool CheckBios(bool device){
 	biosfile = 0;
 
 	CommonSettings.UseExtBIOS = true;
-
+	
 	return true;
 }
