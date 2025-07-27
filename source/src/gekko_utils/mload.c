@@ -43,6 +43,8 @@
 
 #define getbe32(x) ((adr[x]<<24) | (adr[x+1]<<16) | (adr[x+2]<<8) | (adr[x+3]))
 
+extern void iosDestroyHeap(int hid);
+
 typedef struct
 {
 	u32 ident0;
